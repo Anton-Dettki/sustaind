@@ -21,7 +21,7 @@ import { Button } from '#/components/ui/button'
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
 import { DropdownMenu } from '#/components/ui/dropdown-menu'
 import { CreateObligationDialog } from '#/components/CreateObligationDialog'
-export const Route = createFileRoute('/obligations')({
+export const Route = createFileRoute('/Obligations')({
   validateSearch: (search: Record<string, unknown>) => ({
     short: typeof search.short === 'string' ? search.short : undefined,
   }),

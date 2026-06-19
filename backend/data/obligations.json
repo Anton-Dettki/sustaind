@@ -58,11 +58,5 @@
     "legalActTitleShort": "CLP",
     "description": "Für neu eingeführte Stoffe die Einstufung nach CLP durchführen und die Kennzeichnungspflichten ableiten.",
     "status": "in_progress"
-  },
-  {
-    "title": "Test",
-    "legalActTitleShort": "BImSchG",
-    "description": "Test",
-    "status": "done"
   }
 ]

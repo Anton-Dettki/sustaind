@@ -7,7 +7,7 @@ import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle }
 import { Button } from '#/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 
-export const Route = createFileRoute('/legal-acts')({
+export const Route = createFileRoute('/Legal-acts')({
   component: LegalActsPage,
 })
 

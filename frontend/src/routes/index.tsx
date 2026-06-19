@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card"
 import { ArrowRightIcon } from 'lucide-react'
 
-export const Route = createFileRoute('/')({ component: App })
+export const Route = createFileRoute('/Index')({ component: App })
 
 function App() {
   const navigate = useNavigate()
