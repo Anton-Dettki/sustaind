@@ -1,7 +1,17 @@
 import { obligationsQueryOptions } from '#/queries/obligations'
+import { legalActsQueryOptions } from '#/queries/legal-acts'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import { type Obligation } from '#/utils/interfaces'
+import { type LegalAct, type Obligation } from '#/utils/interfaces'
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from '#/components/ui/item'
+import { ShieldAlertIcon } from 'lucide-react'
+import { useMemo } from 'react'
 
 export const Route = createFileRoute('/obligations')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -10,22 +20,91 @@ export const Route = createFileRoute('/obligations')({
   component: RouteComponent,
 })
 
+function groupByShort(obligations: Obligation[]) {
+  const groups = new Map<string, Obligation[]>()
+
+  for (const obligation of obligations) {
+    const group = groups.get(obligation.legalActTitleShort) ?? []
+    group.push(obligation)
+    groups.set(obligation.legalActTitleShort, group)
+  }
+
+  return groups
+}
+
 function RouteComponent() {
   const { short } = Route.useSearch()
   const { data, isLoading, error } = useQuery(obligationsQueryOptions())
+  const { data: legalActs } = useQuery(legalActsQueryOptions())
 
-  if (isLoading) return <p>Loading…</p>
-  if (error) return <p>Error: {error.message}</p>
+  const groups = useMemo(() => groupByShort(data ?? []), [data])
 
-  const obligations = short
-    ? data?.filter((obligation: Obligation) => obligation.legalActTitleShort === short)
-    : data
+  const orderedShorts = useMemo(() => {
+    const shortsInData = [...groups.keys()]
+
+    if (!legalActs?.length) return shortsInData
+
+    const fromLegalActs = legalActs
+      .map((act: LegalAct) => act.titleShort)
+      .filter((titleShort: string) => groups.has(titleShort))
+
+    const remaining = shortsInData.filter(
+      (titleShort) => !fromLegalActs.includes(titleShort),
+    )
+
+    return [...fromLegalActs, ...remaining]
+  }, [groups, legalActs])
+
+  const visibleShorts = short
+    ? orderedShorts.filter((titleShort) => titleShort === short)
+    : orderedShorts
+
+  if (isLoading) {
+    return (
+      <main className="flex min-h-[60vh] items-center justify-center">
+        <p>Loading…</p>
+      </main>
+    )
+  }
+
+  if (error) {
+    return (
+      <main className="flex min-h-[60vh] items-center justify-center">
+        <p>Error: {error.message}</p>
+      </main>
+    )
+  }
+
+  if (short && visibleShorts.length === 0) {
+    return (
+      <main className="flex min-h-[60vh] items-center justify-center px-4">
+        <p>No obligations found for {short}.</p>
+      </main>
+    )
+  }
 
   return (
-    <ul>
-      {obligations?.map((obligation: Obligation) => (
-        <li key={obligation.title}>{obligation.title}</li>
+    <main className="mx-auto mt-10 flex w-full max-w-lg flex-col gap-10 px-4 pb-12">
+      {visibleShorts.map((titleShort) => (
+        <section key={titleShort} id={titleShort} className="flex flex-col gap-3 scroll-mt-24">
+          <h2 className="text-lg font-semibold tracking-tight">{titleShort}</h2>
+          <ul className="flex flex-col gap-2">
+            {groups.get(titleShort)?.map((obligation) => (
+              <li key={obligation.title}>
+                <Item variant="outline">
+                  <ItemMedia variant="icon">
+                    <ShieldAlertIcon />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>{obligation.title}</ItemTitle>
+                    <ItemDescription>{obligation.description}</ItemDescription>
+                  </ItemContent>
+                </Item>
+              </li>
+            ))}
+          </ul>
+        </section>
       ))}
-    </ul>
+    </main>
   )
 }
