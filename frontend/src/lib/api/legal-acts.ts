@@ -1,11 +1,5 @@
 import { api } from './client'
-
-export interface LegalAct {
-    title: string;
-    titleShort: string;
-    jurisdiction: string;
-    enactmentDate: string;
-  }
+import { type LegalAct } from '#/utils/interfaces'
 
 export function fetchLegalActs() {
   return api<LegalAct[]>('/legal-acts')
