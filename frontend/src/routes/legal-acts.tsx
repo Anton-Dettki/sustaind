@@ -5,6 +5,7 @@ import { type LegalAct } from '#/utils/interfaces'
 import { ShieldAlertIcon, ArrowRightIcon } from 'lucide-react'
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '#/components/ui/item'
 import { Button } from '#/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
 
 export const Route = createFileRoute('/legal-acts')({
   component: LegalActsPage,
@@ -45,7 +46,18 @@ function LegalActsPage() {
                 {act.title}
               </ItemTitle>
               <ItemDescription>
-                {act.jurisdiction} ({act.enactmentDate})
+                <span className="flex items-center gap-2">
+                  <Avatar size="sm">
+                    {act.jurisdiction === 'DE' && (
+                      <><AvatarImage src="/flags/germany.png" /><AvatarFallback>DE</AvatarFallback></>
+                    )}
+                    {act.jurisdiction === 'EU' && (
+                      <><AvatarImage src="/flags/eu.png" /><AvatarFallback>EU</AvatarFallback></>
+                    )}
+                  </Avatar>
+
+                  {act.jurisdiction} <span className="text-muted-foreground">({act.enactmentDate})</span>
+                </span>
               </ItemDescription>
             </ItemContent>
             <ItemActions>
