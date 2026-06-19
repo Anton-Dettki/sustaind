@@ -1,18 +1,51 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { useMemo } from 'react'
+import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
+import { FilterBar } from '#/components/FilterBar'
+import { LegalActItem } from '#/components/LegalActItem'
+import { filterLegalActs, getEnactmentYears } from '#/lib/legal-acts'
+import { parseLegalActsSearch } from '#/lib/validators/legal-acts-search'
 import { legalActsQueryOptions } from '#/queries/legal-acts'
-import { type LegalAct } from '#/utils/Interfaces'
-import { ShieldAlertIcon, ArrowRightIcon } from 'lucide-react'
-import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '#/components/ui/item'
-import { Button } from '#/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
+import type { Jurisdiction } from '#/utils/Types'
 
 export const Route = createFileRoute('/Legal-acts')({
+  validateSearch: parseLegalActsSearch,
   component: LegalActsPage,
 })
 
 function LegalActsPage() {
+  const { jurisdiction, year } = Route.useSearch()
+  const navigate = Route.useNavigate()
   const { data, isLoading, error } = useQuery(legalActsQueryOptions())
+
+  const enactmentYears = useMemo(() => getEnactmentYears(data ?? []), [data])
+
+  const filteredActs = useMemo(
+    () => filterLegalActs(data ?? [], jurisdiction, year),
+    [data, jurisdiction, year],
+  )
+
+  function clearFilters() {
+    navigate({ search: { jurisdiction: undefined, year: undefined } })
+  }
+
+  function setJurisdiction(next: Jurisdiction | undefined) {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        jurisdiction: next,
+      }),
+    })
+  }
+
+  function setYear(next: string | undefined) {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        year: next,
+      }),
+    })
+  }
 
   if (isLoading) {
     return (
@@ -31,48 +64,27 @@ function LegalActsPage() {
   }
 
   return (
-    <main className="flex min-h-[60vh] justify-center px-4 mt-10">
-      <ul className="flex w-full max-w-2xl flex-col gap-4">
-        {data?.map((act: LegalAct) => (
-          <Item
-            key={act.title}
-            variant="outline"
-          >
-            <ItemMedia variant="icon">
-              <ShieldAlertIcon/>
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>
-                {act.title}
-              </ItemTitle>
-              <ItemDescription>
-                <span className="flex items-center gap-2">
-                  <Avatar size="sm">
-                    {act.jurisdiction === 'DE' && (
-                      <><AvatarImage src="/flags/germany.png" /><AvatarFallback>DE</AvatarFallback></>
-                    )}
-                    {act.jurisdiction === 'EU' && (
-                      <><AvatarImage src="/flags/eu.png" /><AvatarFallback>EU</AvatarFallback></>
-                    )}
-                  </Avatar>
+    <main className="mx-auto mt-10 flex min-h-[60vh] w-full max-w-2xl flex-col px-4 pb-12">
+      <FilterBar
+        jurisdiction={jurisdiction}
+        year={year}
+        years={enactmentYears}
+        onJurisdictionChange={setJurisdiction}
+        onYearChange={setYear}
+        onClear={clearFilters}
+      />
 
-                  {act.jurisdiction} <span className="text-muted-foreground">({act.enactmentDate})</span>
-                </span>
-              </ItemDescription>
-            </ItemContent>
-            <ItemActions>
-              <Button variant="outline" asChild>
-                <Link
-                  to="/obligations"
-                  search={{ short: act.titleShort }}
-                >
-                  View Obligations <ArrowRightIcon />
-                </Link>
-              </Button>
-            </ItemActions>
-          </Item>
-        ))}
-      </ul>
+      {filteredActs.length === 0 ? (
+        <p className="text-center text-sm text-muted-foreground">
+          Keine Rechtsnormen für die gewählten Filter gefunden.
+        </p>
+      ) : (
+        <ul className="flex flex-col gap-4">
+          {filteredActs.map((act) => (
+            <LegalActItem key={act.title} act={act} />
+          ))}
+        </ul>
+      )}
     </main>
   )
 }

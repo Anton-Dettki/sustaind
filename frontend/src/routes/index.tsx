@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card"
 import { ArrowRightIcon } from 'lucide-react'
 
-export const Route = createFileRoute('/Index')({ component: App })
+export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ function App() {
       </CardContent>
       <CardFooter>
         <Button variant="outline" size="sm" className="w-full" asChild>
-          <Link to="/legal-acts">
+          <Link to="/Legal-acts">
             Zu den Rechtsnormen <ArrowRightIcon />
           </Link>
         </Button>
@@ -53,7 +53,7 @@ function App() {
       </CardContent>
       <CardFooter>
         <Button variant="outline" size="sm" className="w-full" asChild>
-          <Link to="/obligations" search={{ short: undefined }}>
+          <Link to="/Obligations" search={{ short: undefined }}>
             Zu den Pflichten <ArrowRightIcon />
           </Link>
         </Button>
