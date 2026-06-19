@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { Body, Controller, Get, NotFoundException, Param, Patch } from "@nestjs/common";
+import { Body, Controller, Get, NotFoundException, Param, Patch, Post } from "@nestjs/common";
 import { Obligation } from "../../utils/Interfaces";
 
 const obligationsPath = join(process.cwd(), "data", "obligations.json");
@@ -28,6 +28,14 @@ export class ObligationsController {
       throw new NotFoundException("Obligation not found");
     }
     obligation.status = body.status;
+    this.writeObligations(obligations);
+    return obligations;
+  }
+
+  @Post("create")
+  create(@Body() body: { title: string, legalActTitleShort: string, description: string, status: string }): Obligation[] {
+    const obligations = this.readObligations();
+    obligations.push(body);
     this.writeObligations(obligations);
     return obligations;
   }
