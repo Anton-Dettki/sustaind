@@ -4,3 +4,10 @@ export interface LegalAct {
     jurisdiction: string;
     enactmentDate: string;
   }
+
+export interface Obligation {
+    title: string;
+    legalActTitleShort: string;
+    description: string;
+    status: string;
+  }
