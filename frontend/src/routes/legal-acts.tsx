@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { legalActsQueryOptions } from '#/queries/legal-acts'
-import { type LegalAct } from '#/utils/interfaces'
+import { type LegalAct } from '#/utils/Interfaces'
 import { ShieldAlertIcon, ArrowRightIcon } from 'lucide-react'
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '#/components/ui/item'
 import { Button } from '#/components/ui/button'
@@ -32,7 +32,7 @@ function LegalActsPage() {
 
   return (
     <main className="flex min-h-[60vh] justify-center px-4 mt-10">
-      <ul className="flex w-full max-w-2xl flex-col gap-2">
+      <ul className="flex w-full max-w-2xl flex-col gap-4">
         {data?.map((act: LegalAct) => (
           <Item
             key={act.title}

@@ -6,7 +6,7 @@ import {
 import { legalActsQueryOptions } from '#/queries/legal-acts'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import { type LegalAct, type Obligation } from '#/utils/interfaces'
+import { type LegalAct, type Obligation } from '#/utils/Interfaces'
 import {
   Item,
   ItemActions,
@@ -20,6 +20,7 @@ import { useMemo } from 'react'
 import { Button } from '#/components/ui/button'
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
 import { DropdownMenu } from '#/components/ui/dropdown-menu'
+import { CreateObligationDialog } from '#/components/CreateObligationDialog'
 export const Route = createFileRoute('/obligations')({
   validateSearch: (search: Record<string, unknown>) => ({
     short: typeof search.short === 'string' ? search.short : undefined,
@@ -108,6 +109,9 @@ function RouteComponent() {
 
   return (
     <main className="mx-auto mt-10 flex w-full max-w-2xl flex-col gap-10 px-4 pb-12">
+      <div className="flex justify-end">
+        <CreateObligationDialog legalActs={legalActs ?? []} />
+      </div>
       {visibleShorts.map((titleShort) => (
         <section key={titleShort} id={titleShort} className="flex flex-col gap-3 scroll-mt-24">
           <h2 className="text-lg font-semibold tracking-tight">{titleShort}</h2>
