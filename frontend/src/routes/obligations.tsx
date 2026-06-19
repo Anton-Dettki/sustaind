@@ -1,24 +1,40 @@
-import { obligationsQueryOptions } from '#/queries/obligations'
+import {
+  obligationsQueryKey,
+  obligationsQueryOptions,
+  updateObligationStatusMutationOptions,
+} from '#/queries/obligations'
 import { legalActsQueryOptions } from '#/queries/legal-acts'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { type LegalAct, type Obligation } from '#/utils/interfaces'
 import {
   Item,
+  ItemActions,
   ItemContent,
   ItemDescription,
   ItemMedia,
   ItemTitle,
 } from '#/components/ui/item'
-import { ShieldAlertIcon } from 'lucide-react'
+import { ChevronDownIcon, ShieldAlertIcon } from 'lucide-react'
 import { useMemo } from 'react'
-
+import { Button } from '#/components/ui/button'
+import { DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
+import { DropdownMenu } from '#/components/ui/dropdown-menu'
 export const Route = createFileRoute('/obligations')({
   validateSearch: (search: Record<string, unknown>) => ({
     short: typeof search.short === 'string' ? search.short : undefined,
   }),
   component: RouteComponent,
 })
+
+function formatStatus(status: string) {
+  const labels: Record<string, string> = {
+    open: 'Open',
+    in_progress: 'In progress',
+    done: 'Done',
+  }
+  return labels[status] ?? status
+}
 
 function groupByShort(obligations: Obligation[]) {
   const groups = new Map<string, Obligation[]>()
@@ -34,8 +50,15 @@ function groupByShort(obligations: Obligation[]) {
 
 function RouteComponent() {
   const { short } = Route.useSearch()
+  const queryClient = useQueryClient()
   const { data, isLoading, error } = useQuery(obligationsQueryOptions())
   const { data: legalActs } = useQuery(legalActsQueryOptions())
+  const { mutate: updateStatus, isPending } = useMutation({
+    ...updateObligationStatusMutationOptions(),
+    onSuccess: (updatedObligations) => {
+      queryClient.setQueryData(obligationsQueryKey, updatedObligations)
+    },
+  })
 
   const groups = useMemo(() => groupByShort(data ?? []), [data])
 
@@ -99,6 +122,39 @@ function RouteComponent() {
                     <ItemTitle>{obligation.title}</ItemTitle>
                     <ItemDescription>{obligation.description}</ItemDescription>
                   </ItemContent>
+                  <ItemActions>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="outline" size="sm" disabled={isPending} className="gap-1.5">
+                            <span>{formatStatus(obligation.status)}</span>
+                            <ChevronDownIcon />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem
+                            onClick={() =>
+                              updateStatus({ title: obligation.title, status: 'open' })
+                            }
+                          >
+                            {formatStatus('open')}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() =>
+                              updateStatus({ title: obligation.title, status: 'in_progress' })
+                            }
+                          >
+                            {formatStatus('in_progress')}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() =>
+                              updateStatus({ title: obligation.title, status: 'done' })
+                            }
+                          >
+                            {formatStatus('done')}
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                  </ItemActions>
                 </Item>
               </li>
             ))}

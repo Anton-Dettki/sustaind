@@ -1,8 +1,16 @@
-import { queryOptions } from '@tanstack/react-query'
-import { fetchObligations } from '#/lib/api/obligations'
+import { mutationOptions, queryOptions } from '@tanstack/react-query'
+import { fetchObligations, updateObligationStatus } from '#/lib/api/obligations'
+
+export const obligationsQueryKey = ['obligations'] as const
 
 export const obligationsQueryOptions = () =>
   queryOptions({
-    queryKey: ['obligations'],
+    queryKey: obligationsQueryKey,
     queryFn: fetchObligations,
+  })
+
+export const updateObligationStatusMutationOptions = () =>
+  mutationOptions({
+    mutationFn: ({ title, status }: { title: string; status: string }) =>
+      updateObligationStatus(title, status),
   })
