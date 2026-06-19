@@ -38,8 +38,8 @@ import {
   createObligationMutationOptions,
   obligationsQueryKey,
 } from '#/queries/obligations'
-import { type LegalAct } from '#/utils/Interfaces'
-import { type CreateObligationDialogProps } from '#/utils/Types'
+import { type LegalAct } from '#/types/Interfaces'
+import { type CreateObligationDialogProps } from '#/types/Types'
 
 const statusLabels: Record<CreateObligationInput['status'], string> = {
   open: 'Offen',

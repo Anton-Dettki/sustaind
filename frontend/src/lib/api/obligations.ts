@@ -1,5 +1,5 @@
 import { api } from './client'
-import { type Obligation } from '#/utils/Interfaces'
+import { type Obligation } from '#/types/Interfaces'
 
 export function fetchObligations() {
     return api<Obligation[]>('/obligations')

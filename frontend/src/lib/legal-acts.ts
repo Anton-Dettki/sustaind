@@ -1,5 +1,5 @@
-import type { LegalAct } from '#/utils/Interfaces'
-import type { Jurisdiction } from '#/utils/Types'
+import type { LegalAct } from '#/types/Interfaces'
+import type { Jurisdiction } from '#/types/Types'
 
 export function filterLegalActs(
   acts: LegalAct[],

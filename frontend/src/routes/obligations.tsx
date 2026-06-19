@@ -6,7 +6,7 @@ import {
 import { legalActsQueryOptions } from '#/queries/legal-acts'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import { type LegalAct, type Obligation } from '#/utils/Interfaces'
+import { type LegalAct, type Obligation } from '#/types/Interfaces'
 import {
   Item,
   ItemActions,

@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
-import type { JurisdictionBadgeProps } from '#/utils/Types'
+import type { JurisdictionBadgeProps } from '#/types/Types'
 
 
 export function JurisdictionBadge({ jurisdiction, enactmentDate }: JurisdictionBadgeProps) {

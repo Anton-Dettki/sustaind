@@ -1,4 +1,4 @@
-import type { LegalActsSearch } from '#/utils/Types'
+import type { LegalActsSearch } from '#/types/Types'
 
 export function parseLegalActsSearch(search: Record<string, unknown>): LegalActsSearch {
   return {

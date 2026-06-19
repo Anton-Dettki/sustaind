@@ -6,7 +6,7 @@ import { LegalActItem } from '#/components/LegalActItem'
 import { filterLegalActs, getEnactmentYears } from '#/lib/legal-acts'
 import { parseLegalActsSearch } from '#/lib/validators/legal-acts-search'
 import { legalActsQueryOptions } from '#/queries/legal-acts'
-import type { Jurisdiction } from '#/utils/Types'
+import type { Jurisdiction } from '#/types/Types'
 
 export const Route = createFileRoute('/Legal-acts')({
   validateSearch: parseLegalActsSearch,

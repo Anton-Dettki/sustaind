@@ -10,7 +10,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '#/components/ui/item'
-import type { LegalAct } from '#/utils/Interfaces'
+import type { LegalAct } from '#/types/Interfaces'
 
 type LegalActItemProps = {
   act: LegalAct
