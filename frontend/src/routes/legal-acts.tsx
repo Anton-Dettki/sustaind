@@ -32,7 +32,7 @@ function LegalActsPage() {
 
   return (
     <main className="flex min-h-[60vh] justify-center px-4 mt-10">
-      <ul className="flex w-full max-w-lg flex-col gap-2">
+      <ul className="flex w-full max-w-2xl flex-col gap-2">
         {data?.map((act: LegalAct) => (
           <Item
             key={act.title}

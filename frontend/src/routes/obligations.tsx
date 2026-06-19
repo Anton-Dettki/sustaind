@@ -107,7 +107,7 @@ function RouteComponent() {
   }
 
   return (
-    <main className="mx-auto mt-10 flex w-full max-w-lg flex-col gap-10 px-4 pb-12">
+    <main className="mx-auto mt-10 flex w-full max-w-2xl flex-col gap-10 px-4 pb-12">
       {visibleShorts.map((titleShort) => (
         <section key={titleShort} id={titleShort} className="flex flex-col gap-3 scroll-mt-24">
           <h2 className="text-lg font-semibold tracking-tight">{titleShort}</h2>
