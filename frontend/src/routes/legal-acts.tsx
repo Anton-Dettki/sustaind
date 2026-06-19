@@ -1,29 +1,66 @@
-import { Button } from '#/components/ui/button'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { legalActsQueryOptions } from '#/queries/legal-acts'
-import { type LegalAct } from '#/lib/api/legal-acts'
+import { type LegalAct } from '#/utils/interfaces'
+import { ShieldAlertIcon, ArrowRightIcon } from 'lucide-react'
+import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '#/components/ui/item'
+import { Button } from '#/components/ui/button'
 
 export const Route = createFileRoute('/legal-acts')({
   component: LegalActsPage,
 })
 
 function LegalActsPage() {
-    const { data, isLoading, error, refetch, isFetching } = useQuery(legalActsQueryOptions())
-  
-    if (isLoading) return <p>Loading…</p>
-    if (error) return <p>Error: {error.message}</p>
-  
+  const { data, isLoading, error } = useQuery(legalActsQueryOptions())
+
+  if (isLoading) {
     return (
-      <>
-        <Button onClick={() => refetch()} disabled={isFetching}>
-          {isFetching ? 'Reloading…' : 'Reload'}
-        </Button>
-        <ul>
-          {data?.map((act: LegalAct) => (
-            <li key={act.title}>{act.title}</li>
-          ))}
-        </ul>
-      </>
+      <main className="flex min-h-[60vh] items-center justify-center">
+        <p>Loading…</p>
+      </main>
     )
   }
+
+  if (error) {
+    return (
+      <main className="flex min-h-[60vh] items-center justify-center">
+        <p>Error: {error.message}</p>
+      </main>
+    )
+  }
+
+  return (
+    <main className="flex min-h-[60vh] justify-center px-4 mt-10">
+      <ul className="flex w-full max-w-lg flex-col gap-2">
+        {data?.map((act: LegalAct) => (
+          <Item
+            key={act.title}
+            variant="outline"
+          >
+            <ItemMedia variant="icon">
+              <ShieldAlertIcon/>
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>
+                {act.title}
+              </ItemTitle>
+              <ItemDescription>
+                {act.jurisdiction} ({act.enactmentDate})
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <Button variant="outline" asChild>
+                <Link
+                  to="/obligations"
+                  search={{ short: act.titleShort }}
+                >
+                  View Obligations <ArrowRightIcon />
+                </Link>
+              </Button>
+            </ItemActions>
+          </Item>
+        ))}
+      </ul>
+    </main>
+  )
+}
