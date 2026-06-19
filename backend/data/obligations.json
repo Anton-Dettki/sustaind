@@ -1,0 +1,62 @@
+[
+    {
+      "title": "Genehmigungsbedürftige Anlage nach BImSchG identifizieren",
+      "legalActTitleShort": "BImSchG",
+      "description": "Alle betrieblichen Anlagen erfassen und prüfen, ob eine immissionsschutzrechtliche Genehmigung erforderlich ist.",
+      "status": "open"
+    },
+    {
+      "title": "Emissionsüberwachung für genehmigte Anlagen einrichten",
+      "legalActTitleShort": "BImSchG",
+      "description": "Mess- und Überwachungskonzept für genehmigungspflichtige Anlagen erstellen und dokumentieren.",
+      "status": "in_progress"
+    },
+    {
+      "title": "AwSV-Registrierung für wassergefährdende Stoffe durchführen",
+      "legalActTitleShort": "AwSV",
+      "description": "Anlagen mit wassergefährdenden Stoffen beim zuständigen Gewässerschutzamt registrieren.",
+      "status": "in_progress"
+    },
+    {
+      "title": "Gefährdungsbeurteilung für AwSV-Anlagen aktualisieren",
+      "legalActTitleShort": "AwSV",
+      "description": "Bestehende Gefährdungsbeurteilungen prüfen und bei Änderungen der Lagerung oder Menge aktualisieren.",
+      "status": "open"
+    },
+    {
+      "title": "REACH-Konformitätserklärung für Importstoffe prüfen",
+      "legalActTitleShort": "REACH",
+      "description": "Sicherstellen, dass für alle importierten Stoffe > 1 t/Jahr die Registrierungspflichten erfüllt sind.",
+      "status": "open"
+    },
+    {
+      "title": "Sicherheitsdatenblätter für REACH-registrierte Stoffe beschaffen",
+      "legalActTitleShort": "REACH",
+      "description": "Aktuelle Sicherheitsdatenblätter von Lieferanten einholen und im Stoffregister hinterlegen.",
+      "status": "done"
+    },
+    {
+      "title": "Stoffregister gemäß ChemG führen",
+      "legalActTitleShort": "ChemG",
+      "description": "Alle im Betrieb verwendeten Gefahrstoffe erfassen und im zentralen Stoffregister dokumentieren.",
+      "status": "open"
+    },
+    {
+      "title": "Gefahrstoffbeauftragten benennen",
+      "legalActTitleShort": "ChemG",
+      "description": "Schriftlich benennen, dass mindestens eine Person mit den Aufgaben des Gefahrstoffbeauftragten betraut ist.",
+      "status": "done"
+    },
+    {
+      "title": "CLP-konforme Kennzeichnung aller Gemische prüfen",
+      "legalActTitleShort": "CLP",
+      "description": "Etikettierung und Verpackung aller im eigenen Betrieb hergestellten oder abgefüllten Gemische auf CLP-Konformität prüfen.",
+      "status": "open"
+    },
+    {
+      "title": "Einstufung und Kennzeichnung neuer Stoffe dokumentieren",
+      "legalActTitleShort": "CLP",
+      "description": "Für neu eingeführte Stoffe die Einstufung nach CLP durchführen und die Kennzeichnungspflichten ableiten.",
+      "status": "in_progress"
+    }
+  ]

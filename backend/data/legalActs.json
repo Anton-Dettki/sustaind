@@ -1,0 +1,32 @@
+[
+    {
+      "title": "Bundes-Immissionsschutzgesetz",
+      "titleShort": "BImSchG",
+      "jurisdiction": "DE",
+      "enactmentDate": "1974-05-15"
+    },
+    {
+      "title": "Verordnung über Anlagen zum Umgang mit wassergefährdenden Stoffen",
+      "titleShort": "AwSV",
+      "jurisdiction": "DE",
+      "enactmentDate": "2017-04-18"
+    },
+    {
+      "title": "Verordnung (EU) über die Registrierung, Bewertung, Zulassung und Beschränkung chemischer Stoffe",
+      "titleShort": "REACH",
+      "jurisdiction": "EU",
+      "enactmentDate": "2006-12-18"
+    },
+    {
+      "title": "Gesetz zum Schutz vor gefährlichen Stoffen",
+      "titleShort": "ChemG",
+      "jurisdiction": "DE",
+      "enactmentDate": "2005-06-23"
+    },
+    {
+      "title": "Richtlinie über die Bewertung und Begrenzung der Risiken von Stoffen",
+      "titleShort": "CLP",
+      "jurisdiction": "EU",
+      "enactmentDate": "2008-12-16"
+    }
+  ]
