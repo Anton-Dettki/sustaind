@@ -16,6 +16,7 @@ function About() {
           Dies ist eine kleine Web-App, in der man Rechtsnormen einsehen und zugehörige Pflichten verwalten kann.
           Sie ist ein Prototyp für die Sustaind GmbH. Gebaut von Anton Dettki im Verlauf einer Coding Challenge.
         </p>
+        <p>PS: Ja, auch diese Seite habe ich per Hand geschrieben.</p>
       </section>
     </main>
   )

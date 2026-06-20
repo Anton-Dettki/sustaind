@@ -61,3 +61,21 @@ backend/     NestJS-API, Seed-Daten in data/
 frontend/    React-App (routes, components, lib, queries)
 CHALLENGE.md Aufgabenstellung der Coding Challenge
 ```
+## Insights
+### Persistent Storage
+Neue Pflichten und Status-Änderungen werden per `fs` in `obligations.json` geschrieben — die Daten bleiben auch nach einem Server-Neustart erhalten.
+
+Ich habe mich bewusst **gegen eine Datenbank** (z. B. Postgres mit Drizzle) entschieden. Für ein Projekt dieser Größe wäre das Setup, Schema, Migrations und Repository-Layer meiner Meinung nach **zu viel zusätzlicher Code**, der den Fokus von den interessanteren Teilen wegnimmt: API-Design, Frontend-Architektur mit TanStack, Validierung und UI. JSON-Dateien reichen hier vollkommen aus und halten das Backend schlank.
+
+### Zod Validation
+Per Zod wird die erstellung neuer Obligations folgenden Regeln validiert:
+- Titel muss vorhanden sein (mindestens 1 character)
+- shortTitle muss vorhanden sein
+- description muss vorhanden sein
+- Status muss entweder "open", "in_progress" oder "done" sein
+
+### E2E Test
+Für den Endpunkt POST /obligations/create habe ich einen E2E Test geschrieben. Dieser Test stellt sicher, dass neue Obligations auch wirklich persistent angelegt werden. 
+
+Weiter sinnvolle Tests könnten z.B. leere Eingabefelder oder einen falschen Status beinhalten.
+

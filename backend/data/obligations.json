@@ -3,7 +3,7 @@
     "title": "Genehmigungsbedürftige Anlage nach BImSchG identifizieren",
     "legalActTitleShort": "BImSchG",
     "description": "Alle betrieblichen Anlagen erfassen und prüfen, ob eine immissionsschutzrechtliche Genehmigung erforderlich ist.",
-    "status": "done"
+    "status": "in_progress"
   },
   {
     "title": "Emissionsüberwachung für genehmigte Anlagen einrichten",
