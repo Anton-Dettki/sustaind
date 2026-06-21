@@ -5,6 +5,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from '../src/app.module';
+import { Obligation } from '../src/utils/Interfaces';
 
 const obligationsPath = join(process.cwd(), 'data', 'obligations.json');
 
@@ -38,22 +39,26 @@ describe('POST /obligations/create (e2e)', () => {
       status: 'open',
     };
 
-    const beforeResponse = await request(app.getHttpServer()).get('/obligations').expect(200);
-    const countBefore = beforeResponse.body.length;
+    const beforeResponse = await request(app.getHttpServer())
+      .get('/obligations')
+      .expect(200);
+    const countBefore = (beforeResponse.body as Obligation[]).length;
 
     const createResponse = await request(app.getHttpServer())
       .post('/obligations/create')
       .send(newObligation)
       .expect(201);
 
-    expect(createResponse.body).toHaveLength(countBefore + 1);
-    expect(createResponse.body).toEqual(
+    expect(createResponse.body as Obligation[]).toHaveLength(countBefore + 1);
+    expect(createResponse.body as Obligation[]).toEqual(
       expect.arrayContaining([expect.objectContaining(newObligation)]),
     );
 
-    const afterResponse = await request(app.getHttpServer()).get('/obligations').expect(200);
-    expect(afterResponse.body).toHaveLength(countBefore + 1);
-    expect(afterResponse.body).toEqual(
+    const afterResponse = await request(app.getHttpServer())
+      .get('/obligations')
+      .expect(200);
+    expect(afterResponse.body as Obligation[]).toHaveLength(countBefore + 1);
+    expect(afterResponse.body as Obligation[]).toEqual(
       expect.arrayContaining([expect.objectContaining(newObligation)]),
     );
   });

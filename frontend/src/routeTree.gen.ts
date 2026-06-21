@@ -13,7 +13,6 @@ import { Route as ObligationsRouteImport } from './routes/Obligations'
 import { Route as LegalActsRouteImport } from './routes/Legal-acts'
 import { Route as AboutRouteImport } from './routes/About'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 
 const ObligationsRoute = ObligationsRouteImport.update({
   id: '/Obligations',
@@ -35,25 +34,18 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/About': typeof AboutRoute
   '/Legal-acts': typeof LegalActsRoute
   '/Obligations': typeof ObligationsRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/About': typeof AboutRoute
   '/Legal-acts': typeof LegalActsRoute
   '/Obligations': typeof ObligationsRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,25 +53,13 @@ export interface FileRoutesById {
   '/About': typeof AboutRoute
   '/Legal-acts': typeof LegalActsRoute
   '/Obligations': typeof ObligationsRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/About'
-    | '/Legal-acts'
-    | '/Obligations'
-    | '/demo/tanstack-query'
+  fullPaths: '/' | '/About' | '/Legal-acts' | '/Obligations'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/About' | '/Legal-acts' | '/Obligations' | '/demo/tanstack-query'
-  id:
-    | '__root__'
-    | '/'
-    | '/About'
-    | '/Legal-acts'
-    | '/Obligations'
-    | '/demo/tanstack-query'
+  to: '/' | '/About' | '/Legal-acts' | '/Obligations'
+  id: '__root__' | '/' | '/About' | '/Legal-acts' | '/Obligations'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -87,7 +67,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   LegalActsRoute: typeof LegalActsRoute
   ObligationsRoute: typeof ObligationsRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -120,13 +99,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -135,7 +107,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   LegalActsRoute: LegalActsRoute,
   ObligationsRoute: ObligationsRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

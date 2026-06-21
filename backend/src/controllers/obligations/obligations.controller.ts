@@ -1,18 +1,30 @@
-import { readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { Body, Controller, Get, NotFoundException, Param, Patch, Post } from "@nestjs/common";
-import { Obligation } from "../../utils/Interfaces";
+import { readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { Obligation } from '../../utils/Interfaces';
 
-const obligationsPath = join(process.cwd(), "data", "obligations.json");
+const obligationsPath = join(process.cwd(), 'data', 'obligations.json');
 
-@Controller("obligations")
+@Controller('obligations')
 export class ObligationsController {
   private readObligations(): Obligation[] {
-    return JSON.parse(readFileSync(obligationsPath, "utf-8"));
+    return JSON.parse(readFileSync(obligationsPath, 'utf-8')) as Obligation[];
   }
 
   private writeObligations(obligations: Obligation[]): void {
-    writeFileSync(obligationsPath, `${JSON.stringify(obligations, null, 2)}\n`, "utf-8");
+    writeFileSync(
+      obligationsPath,
+      `${JSON.stringify(obligations, null, 2)}\n`,
+      'utf-8',
+    );
   }
 
   @Get()
@@ -20,20 +32,33 @@ export class ObligationsController {
     return this.readObligations();
   }
 
-  @Patch(":title")
-  updateStatus(@Param("title") title: string, @Body() body: { status: string }): Obligation[] {
+  @Patch(':title')
+  updateStatus(
+    @Param('title') title: string,
+    @Body() body: { status: string },
+  ): Obligation[] {
     const obligations = this.readObligations();
-    const obligation = obligations.find((obligation) => obligation.title === title);
+    const obligation = obligations.find(
+      (obligation) => obligation.title === title,
+    );
     if (!obligation) {
-      throw new NotFoundException("Obligation not found");
+      throw new NotFoundException('Obligation not found');
     }
     obligation.status = body.status;
     this.writeObligations(obligations);
     return obligations;
   }
 
-  @Post("create")
-  create(@Body() body: { title: string, legalActTitleShort: string, description: string, status: string }): Obligation[] {
+  @Post('create')
+  create(
+    @Body()
+    body: {
+      title: string;
+      legalActTitleShort: string;
+      description: string;
+      status: string;
+    },
+  ): Obligation[] {
     const obligations = this.readObligations();
     obligations.push(body);
     this.writeObligations(obligations);
