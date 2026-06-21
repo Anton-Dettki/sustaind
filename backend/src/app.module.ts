@@ -7,3 +7,4 @@ import { ObligationsController } from './controllers/obligations/obligations.con
   controllers: [LegalActController, ObligationsController],
 })
 export class AppModule {}
+ 
