@@ -79,3 +79,9 @@ Für den Endpunkt POST /obligations/create habe ich einen E2E Test geschrieben. 
 
 Weiter sinnvolle Tests könnten z.B. leere Eingabefelder oder einen falschen Status beinhalten.
 
+Der test kann mit dem command ausgeführt werden
+```bash
+cd backend
+npm run test:e2e
+npm run dev
+```
