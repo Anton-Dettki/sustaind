@@ -1,3 +1,4 @@
+import type { createObligationSchema } from "#/lib/validators/obligation"
 import type { LegalAct } from "./Interfaces"
 import type { ReactNode } from "react"
 
@@ -33,3 +34,5 @@ export type JurisdictionBadgeProps = {
   jurisdiction: string
   enactmentDate?: string
 }
+
+export type CreateObligationInput = z.infer<typeof createObligationSchema>

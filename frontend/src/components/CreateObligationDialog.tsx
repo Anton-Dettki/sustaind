@@ -31,15 +31,12 @@ import {
 } from '#/components/ui/select'
 import { Textarea } from '#/components/ui/textarea'
 import {
-  createObligationSchema,
-  type CreateObligationInput,
-} from '#/lib/validators/obligation'
-import {
   createObligationMutationOptions,
   obligationsQueryKey,
 } from '#/queries/obligations'
-import { type LegalAct } from '#/types/Interfaces'
-import { type CreateObligationDialogProps } from '#/types/Types'
+import type { LegalAct } from '#/types/Interfaces'
+import type { CreateObligationDialogProps, CreateObligationInput } from '#/types/Types'
+import { createObligationSchema } from '#/lib/validators/obligation'
 
 const statusLabels: Record<CreateObligationInput['status'], string> = {
   open: 'Offen',

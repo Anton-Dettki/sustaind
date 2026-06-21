@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import { cn } from '#/lib/utils'
-import { type FilterBarProps } from '#/types/Types'
+import type { FilterBarProps } from '#/types/Types'
 
 export function FilterBar({
   jurisdiction,

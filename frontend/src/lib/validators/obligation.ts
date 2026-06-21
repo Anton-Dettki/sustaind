@@ -8,5 +8,3 @@ export const createObligationSchema = z.object({
   description: z.string().trim().min(1, 'Beschreibung ist benötigt'),
   status: obligationStatusSchema,
 })
-
-export type CreateObligationInput = z.infer<typeof createObligationSchema>

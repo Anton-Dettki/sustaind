@@ -1,6 +1,5 @@
 import { Button } from '#/components/ui/button'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { useNavigate } from '@tanstack/react-router'
 import {
   Card,
   CardContent,
@@ -14,7 +13,6 @@ import { ArrowRightIcon } from 'lucide-react'
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
-  const navigate = useNavigate()
   return (
   <div>
     <div className="flex flex-row flex-wrap justify-center gap-4 my-15">

@@ -6,7 +6,7 @@ import {
 import { legalActsQueryOptions } from '#/queries/legal-acts'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
-import { type LegalAct, type Obligation } from '#/types/Interfaces'
+import type { LegalAct, Obligation } from '#/types/Interfaces'
 import {
   Item,
   ItemActions,
@@ -18,9 +18,14 @@ import {
 import { ChevronDownIcon, ShieldAlertIcon } from 'lucide-react'
 import { useMemo } from 'react'
 import { Button } from '#/components/ui/button'
-import { DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
-import { DropdownMenu } from '#/components/ui/dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '#/components/ui/dropdown-menu'
 import { CreateObligationDialog } from '#/components/CreateObligationDialog'
+
 export const Route = createFileRoute('/Obligations')({
   validateSearch: (search: Record<string, unknown>) => ({
     short: typeof search.short === 'string' ? search.short : undefined,
