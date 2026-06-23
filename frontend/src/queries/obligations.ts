@@ -11,8 +11,8 @@ export const obligationsQueryOptions = () =>
 
 export const updateObligationStatusMutationOptions = () =>
   mutationOptions({
-    mutationFn: ({ title, status }: { title: string; status: string }) =>
-      updateObligationStatus(title, status),
+    mutationFn: ({ id, status }: { id: string; status: string }) =>
+      updateObligationStatus(id, status),
   })
 
 export const createObligationMutationOptions = () =>

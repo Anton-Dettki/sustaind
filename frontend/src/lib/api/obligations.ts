@@ -5,8 +5,8 @@ export function fetchObligations() {
     return api<Obligation[]>('/obligations')
 }
 
-export function updateObligationStatus(title: string, status: string) {
-  return api<Obligation[]>(`/obligations/${encodeURIComponent(title)}`, {
+export function updateObligationStatus(id: string, status: string) {
+  return api<Obligation[]>(`/obligations/${encodeURIComponent(id)}`, {
     method: 'PATCH',
     body: { status },
   })

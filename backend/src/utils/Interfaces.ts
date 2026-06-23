@@ -1,4 +1,5 @@
 export interface LegalAct {
+  id: string;
   title: string;
   titleShort: string;
   jurisdiction: string;
@@ -6,6 +7,7 @@ export interface LegalAct {
 }
 
 export interface Obligation {
+  id: string;
   title: string;
   legalActTitleShort: string;
   description: string;

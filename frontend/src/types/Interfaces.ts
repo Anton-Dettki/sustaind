@@ -6,6 +6,7 @@ export interface LegalAct {
 }
 
 export interface Obligation {
+    id: string;
     title: string;
     legalActTitleShort: string;
     description: string;

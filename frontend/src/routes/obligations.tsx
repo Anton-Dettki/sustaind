@@ -142,21 +142,21 @@ function RouteComponent() {
                         <DropdownMenuContent>
                           <DropdownMenuItem
                             onClick={() =>
-                              updateStatus({ title: obligation.title, status: 'open' })
+                              updateStatus({ id: obligation.id, status: 'open' })
                             }
                           >
                             {formatStatus('open')}
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() =>
-                              updateStatus({ title: obligation.title, status: 'in_progress' })
+                              updateStatus({ id: obligation.id, status: 'in_progress' })
                             }
                           >
                             {formatStatus('in_progress')}
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() =>
-                              updateStatus({ title: obligation.title, status: 'done' })
+                              updateStatus({ id: obligation.id, status: 'done' })
                             }
                           >
                             {formatStatus('done')}

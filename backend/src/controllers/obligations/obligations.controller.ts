@@ -32,14 +32,14 @@ export class ObligationsController {
     return this.readObligations();
   }
 
-  @Patch(':title')
+  @Patch(':id')
   updateStatus(
-    @Param('title') title: string,
+    @Param('id') id: string,
     @Body() body: { status: string },
   ): Obligation[] {
     const obligations = this.readObligations();
     const obligation = obligations.find(
-      (obligation) => obligation.title === title,
+      (obligation) => obligation.id === id,
     );
     if (!obligation) {
       throw new NotFoundException('Obligation not found');
@@ -60,7 +60,7 @@ export class ObligationsController {
     },
   ): Obligation[] {
     const obligations = this.readObligations();
-    obligations.push(body);
+    obligations.push({ ...body, id: "122" });
     this.writeObligations(obligations);
     return obligations;
   }
